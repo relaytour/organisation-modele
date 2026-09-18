@@ -22,7 +22,11 @@ Les règles d'écriture (une fiche, une tâche type, aucune coordonnée personne
 
 ## Version de Relaytour
 
-Ce dépôt suit une version précise de Relaytour, indiquée dans `.github/workflows/valider.yml` (variable `IMAGE`). Mettez-la à jour quand vous mettez à jour votre installation.
+Ce dépôt suit une version précise de Relaytour, indiquée dans `.github/workflows/valider.yml` (variable `IMAGE`). Le gabarit pointe sur le tag `main` pour fonctionner sans réglage. Une fois votre installation en place, remplacez `main` par le tag de l'image installée (le SHA court du commit), et mettez-le à jour à chaque mise à jour de votre installation.
+
+## Configuration à venir
+
+Une prochaine version de Relaytour lira un fichier `contenu/organisation.yaml` (nom, sigle, domaines de mail, contact, couleurs et polices). Ce fichier n'existe pas encore : les valeurs vivent dans `configuration/.env.organisation.example` et se recopient dans le `.env` du serveur.
 
 ## Rattacher ce dossier à Relaytour
 
@@ -31,12 +35,15 @@ Ce dépôt suit une version précise de Relaytour, indiquée dans `.github/workf
 Pour rédiger, valider et importer depuis une installation locale de Relaytour :
 
 ```bash
-# dans le dépôt relaytour/relaytour, fichier packages/server/.env
+# dans votre copie locale du dépôt relaytour/relaytour, fichier packages/server/.env
 CONTENU_ORGA=/chemin/vers/ce/depot/contenu
+# et les valeurs de configuration/.env.organisation.example (au moins DOMAINES_COURRIEL_AUTORISES,
+# sinon la validation refuse les boîtes partagées de votre organisation)
 ```
 
 ```bash
 yarn workspace @relaytour/server orga:valider
+yarn workspace @relaytour/server edition:creer 2027 "Édition 2027" 2027-06-05 2027-06-06   # si l'édition n'existe pas encore
 yarn workspace @relaytour/server orga:importer --edition 2027 --simulation
 yarn workspace @relaytour/server orga:importer --edition 2027
 yarn workspace @relaytour/server orga:exporter        # en fin d'édition : reverse les fiches modifiées ici
@@ -50,6 +57,7 @@ Clonez ce dépôt sur le serveur, par exemple dans `/srv/relaytour/contenu`, pui
 
 ```bash
 cd /srv/relaytour
+docker compose exec server node dist/creer-edition.js 2027 "Édition 2027" 2027-06-05 2027-06-06   # si l'édition n'existe pas encore
 docker compose run --rm -v /srv/relaytour/contenu/contenu:/contenu:ro server \
   node dist/orga-importer.js --dossier /contenu --edition 2027 --simulation
 docker compose run --rm -v /srv/relaytour/contenu/contenu:/contenu:ro server \
