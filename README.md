@@ -73,3 +73,7 @@ Tant que l'image n'est pas publique, le workflow a besoin d'un jeton en lecture 
 - Aucune adresse mail ni aucun numéro personnel : la validation refuse le fichier. Les contacts s'écrivent sous forme de rôles. Seules les boîtes partagées des domaines listés dans `DOMAINES_COURRIEL_AUTORISES` sont admises.
 - Aucun secret (mot de passe SMTP, clé de session) : ils vont dans le `.env` du serveur, jamais dans un dépôt.
 - Aucun export de base ni aucune liste de personnes.
+
+## Licence
+
+Ce gabarit est placé dans le domaine public (CC0 1.0, voir `LICENSE`). Vous pouvez le copier, le modifier et le redistribuer sans condition. Le contenu que votre organisation y ajoute reste le sien : remplacez ou retirez ce fichier `LICENSE` si vous voulez fixer d'autres conditions.

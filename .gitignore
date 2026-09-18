@@ -1,11 +1,43 @@
-.DS_Store
-Thumbs.db
-*.log
+# Environnement : aucun secret dans ce dépôt
 .env
 .env.*
 !.env.organisation.example
+
+# Système
+.DS_Store
+Thumbs.db
+*.log
+
+# Éditeurs et IDE, propres au poste
 .vscode/
 .idea/
+.fleet/
+.zed/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+.history/
+
+# Assistants et agents d'IA, propres au poste
 .claude/
 CLAUDE.md
 AGENTS.md
+GEMINI.md
+.cursor/
+.cursorrules
+.cursorignore
+.windsurf/
+.windsurfrules
+.aider*
+.codex/
+.copilot/
+.github/copilot-instructions.md
+.continue/
+.cline/
+.clinerules
+.roo/
+.kiro/
+.junie/
+.trae/
