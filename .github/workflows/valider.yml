@@ -1,0 +1,26 @@
+name: Valider le contenu
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  valider:
+    runs-on: ubuntu-latest
+    env:
+      # Version de Relaytour utilisée par l'organisation. À faire suivre à chaque mise à jour.
+      IMAGE: ghcr.io/relaytour/relaytour-server:main
+    steps:
+      - uses: actions/checkout@v4
+      # Tant que l'image n'est pas publique, GITHUB_TOKEN n'y donne pas accès :
+      # créer un secret RELAYTOUR_IMAGE_TOKEN (jeton en lecture seule sur les paquets).
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.RELAYTOUR_IMAGE_TOKEN || secrets.GITHUB_TOKEN }}
+      - name: Valider les périmètres, les fiches et les tâches types
+        run: |
+          docker run --rm -v "$PWD/contenu:/contenu:ro" \
+            -e DOMAINES_COURRIEL_AUTORISES="$(grep '^DOMAINES_COURRIEL_AUTORISES=' configuration/.env.organisation.example | cut -d= -f2)" \
+            "$IMAGE" node dist/orga-valider.js /contenu

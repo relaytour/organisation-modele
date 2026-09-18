@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+!.env.organisation.example
+.vscode/
+.idea/
+.claude/
+CLAUDE.md
+AGENTS.md
