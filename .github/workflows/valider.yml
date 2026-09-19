@@ -22,6 +22,4 @@ jobs:
           password: ${{ secrets.RELAYTOUR_IMAGE_TOKEN || secrets.GITHUB_TOKEN }}
       - name: Valider les périmètres, les fiches et les tâches types
         run: |
-          docker run --rm -v "$PWD/contenu:/contenu:ro" \
-            -e DOMAINES_COURRIEL_AUTORISES="$(grep '^DOMAINES_COURRIEL_AUTORISES=' configuration/.env.organisation.example | cut -d= -f2)" \
-            "$IMAGE" node dist/orga-valider.js /contenu
+          docker run --rm -v "$PWD/contenu:/contenu:ro" "$IMAGE" node dist/orga-valider.js /contenu
