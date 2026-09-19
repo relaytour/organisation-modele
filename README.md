@@ -8,13 +8,14 @@ Pour démarrer : créez votre dépôt depuis ce gabarit (« Use this template »
 
 ```
 contenu/
+  organisation.yaml             nom, sigle, domaines de mail, contact, thème
   perimetres.yaml               sports et pôles
   modeles/fiche.md              gabarit commun d'une fiche
   fiches/communes/<slug>.md     fiches communes à tous les périmètres
   fiches/<perimetre>/<slug>.md  fiches d'un périmètre
   taches/<perimetre>.yaml       tâches types d'un périmètre
 configuration/
-  .env.organisation.example     nom, domaines, contact : valeurs à recopier dans le .env du serveur
+  .env.organisation.example     expéditeur des mails et valeurs d'amorçage à recopier dans le .env du serveur
 .github/workflows/valider.yml   validation du contenu à chaque changement
 ```
 
@@ -23,10 +24,6 @@ Les règles d'écriture (une fiche, une tâche type, aucune coordonnée personne
 ## Version de Relaytour
 
 Ce dépôt suit une version précise de Relaytour, indiquée dans `.github/workflows/valider.yml` (variable `IMAGE`). Le gabarit pointe sur le tag `main` pour fonctionner sans réglage. Une fois votre installation en place, remplacez `main` par le tag de l'image installée (le SHA court du commit), et mettez-le à jour à chaque mise à jour de votre installation.
-
-## Configuration à venir
-
-Une prochaine version de Relaytour lira un fichier `contenu/organisation.yaml` (nom, sigle, domaines de mail, contact, couleurs et polices). Ce fichier n'existe pas encore : les valeurs vivent dans `configuration/.env.organisation.example` et se recopient dans le `.env` du serveur.
 
 ## Rattacher ce dossier à Relaytour
 
@@ -37,8 +34,7 @@ Pour rédiger, valider et importer depuis une installation locale de Relaytour :
 ```bash
 # dans votre copie locale du dépôt relaytour/relaytour, fichier packages/server/.env
 CONTENU_ORGA=/chemin/vers/ce/depot/contenu
-# et les valeurs de configuration/.env.organisation.example (au moins DOMAINES_COURRIEL_AUTORISES,
-# sinon la validation refuse les boîtes partagées de votre organisation)
+# et COURRIEL_EXPEDITEUR de configuration/.env.organisation.example
 ```
 
 ```bash
