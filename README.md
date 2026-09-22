@@ -21,6 +21,40 @@ configuration/
 
 Les règles d'écriture (une fiche, une tâche type, aucune coordonnée personnelle) sont décrites dans le dépôt de Relaytour, dossier `content/exemple`.
 
+## Plusieurs activités
+
+Ce gabarit décrit une seule activité, en disposition plate : les périmètres, les fiches et les tâches types sont à la racine de `contenu/`. Cette activité reprend le slug et le nom de votre organisation.
+
+Votre organisation mène peut-être plusieurs activités : un événement, une section qui vit à la saison, un conseil d'administration. Dans ce cas, rangez chacune dans son dossier, avec un fichier `activite.yaml` (ADR 0008 de Relaytour) :
+
+```
+contenu/
+  organisation.yaml
+  modeles/fiche.md
+  activites/<activite>/activite.yaml     nom, nature, groupes de périmètres
+  activites/<activite>/perimetres.yaml
+  activites/<activite>/fiches/…
+  activites/<activite>/taches/…
+```
+
+```yaml
+# contenu/activites/section-natation/activite.yaml
+slug: section-natation # le nom du dossier
+nom: Section natation
+nature: SAISON # EVENEMENT (édition), SAISON (saison) ou MANDAT (mandat)
+groupes: # facultatif : sport et pôle par défaut
+  - cle: equipe
+    libelle: Équipe
+    libellePluriel: Équipes
+  - cle: pole
+    libelle: Pôle
+    libellePluriel: Pôles
+```
+
+Chaque périmètre déclare alors son groupe (`groupe: equipe`) à la place de son type. Les deux dispositions ne se mélangent pas : déplacez `perimetres.yaml`, `fiches/` et `taches/` dans le dossier de votre première activité. Le dossier `content/exemple` du dépôt de Relaytour suit cette disposition.
+
+La disposition `activites/` et les groupes exigent une version de Relaytour qui inclut l'ADR 0008. Faites suivre la variable `IMAGE` de `valider.yml` avant de changer de disposition.
+
 ## Version de Relaytour
 
 Ce dépôt suit une version précise de Relaytour, indiquée dans `.github/workflows/valider.yml` (variable `IMAGE`). Le gabarit pointe sur le tag `main` pour fonctionner sans réglage. Une fois votre installation en place, remplacez `main` par le tag de l'image installée (le SHA court du commit), et mettez-le à jour à chaque mise à jour de votre installation.
@@ -40,7 +74,7 @@ CONTENU_ORGA=/chemin/vers/ce/depot/contenu
 ```bash
 yarn workspace @relaytour/server orga:valider
 yarn workspace @relaytour/server edition:creer 2027 "Édition 2027" 2027-06-05 2027-06-06   # si l'édition n'existe pas encore
-yarn workspace @relaytour/server orga:importer --edition 2027 --simulation
+yarn workspace @relaytour/server orga:importer --edition 2027 --simulation   # --organisation <slug> si l'installation en porte plusieurs
 yarn workspace @relaytour/server orga:importer --edition 2027
 yarn workspace @relaytour/server orga:exporter        # en fin d'édition : reverse les fiches modifiées ici
 ```
