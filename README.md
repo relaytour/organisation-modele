@@ -182,10 +182,12 @@ CONTENU_ORGA=/chemin/vers/ce/depot/contenu
 ```bash
 yarn workspace @relaytour/server orga:valider
 yarn workspace @relaytour/server edition:creer 2027 "Édition 2027" 2027-06-05 2027-06-06   # si l'édition n'existe pas encore
-yarn workspace @relaytour/server orga:importer --edition 2027 --simulation   # --organisation <slug> si l'installation en porte plusieurs
+yarn workspace @relaytour/server orga:importer --edition 2027 --simulation
 yarn workspace @relaytour/server orga:importer --edition 2027
 yarn workspace @relaytour/server orga:exporter        # écrit ici tout le contenu que l'application porte
 ```
+
+Une installation qui porte plusieurs organisations exige `--organisation <slug>` sur chaque commande de cette page : création d'édition, import et export, sur un poste comme sur un serveur.
 
 L'application est la source de vérité du contenu (ADR 0009). L'export écrit l'identité, les activités, les périmètres, les fiches, les tâches types et les images. Un fichier dont le sens ne change pas reste intact, avec ses commentaires. Relisez le diff, puis commitez dans ce dépôt. Un import refuse d'écraser une modification faite dans l'application depuis le dernier export ; `--forcer` l'y autorise. Les admins peuvent aussi télécharger le contenu en archive depuis la page « Organisation ».
 
