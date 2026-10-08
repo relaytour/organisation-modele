@@ -5,4 +5,11 @@ sigle: Rencontres
 fuseauHoraire: Europe/Paris
 domainesCourrielAutorises: [exemple.org]
 contactRecrutement: contact@exemple.org
+# Adresse ouverte par le bouton « Support » de l'espace organisateur (facultatif).
+contactSupport: support@exemple.org
 pageEquipe: https://exemple.org/equipe
+# Images facultatives, relatives à ce fichier : voir « Identité, images et adresses
+# de rôle » dans le README.
+# logo: { png: medias/logo.png }
+# favicon: medias/favicon.png
+# iconeApplication: medias/icone-application.png
